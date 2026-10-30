@@ -1,0 +1,14 @@
+services:
+  jdupes:
+    build: .
+    container_name: jdupes
+    volumes:
+      - /path/to/scan:/data
+      - /mnt/user/jdupes/scripts:/scripts
+      - /mnt/user/jdupes/log/jdupes-cron.log:/var/log/jdupes-cron.log
+    environment:
+      SOURCE_DIR: "/data"
+      JDUPES_OPTIONS: "-rMS"
+      # WRITE_SCRIPT: "true"
+      # CRON_SCHEDULE: "0 2 * * *"
+      # RUN_ON_STARTUP: "true"
