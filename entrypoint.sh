@@ -26,8 +26,7 @@ else
 fi
 
 setup_cron() {
-  mkdir -p /etc/crontabs
-  echo "$CRON_SCHEDULE $ACTIVE_SCRIPT >> /var/log/jdupes-cron.log 2>&1" > /etc/crontabs/root
+  printf '%s %s >> /var/log/jdupes-cron.log 2>&1\n' "$CRON_SCHEDULE" "$ACTIVE_SCRIPT" | crontab -
   touch /var/log/jdupes-cron.log
   echo "Cron scheduled: $CRON_SCHEDULE"
 }
@@ -41,7 +40,11 @@ if [ -n "$CRON_SCHEDULE" ]; then
   setup_cron
   [ "$RUN_ON_STARTUP" = "true" ] && run_once
   echo "Starting cron..."
-  crond -f -L /var/log/cron.log
-elif [ "$RUN_ON_STARTUP" = "true" ]; then
+  if command -v crond >/dev/null 2>&1; then
+    crond -f -L /var/log/cron.log
+  else
+    cron -f
+  fi
+else
   run_once
 fi

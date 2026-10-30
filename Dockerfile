@@ -1,6 +1,8 @@
-FROM alpine:latest
+FROM debian:stable-slim
 
-RUN apk add --no-cache jdupes bash
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends jdupes bash cron && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV SOURCE_DIR=/data \
     JDUPES_OPTIONS="-rMS" \
