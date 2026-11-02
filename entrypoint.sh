@@ -26,8 +26,7 @@ else
 fi
 
 setup_cron() {
-  printf '%s %s >> /var/log/jdupes-cron.log 2>&1\n' "$CRON_SCHEDULE" "$ACTIVE_SCRIPT" | crontab -
-  touch /var/log/jdupes-cron.log
+  printf '%s %s >> /proc/1/fd/1 2>&1\n' "$CRON_SCHEDULE" "$ACTIVE_SCRIPT" | crontab -
   echo "Cron scheduled: $CRON_SCHEDULE"
 }
 

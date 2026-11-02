@@ -5,7 +5,6 @@ services:
     volumes:
       - /path/to/scan:/data
       - /mnt/user/jdupes/scripts:/scripts
-      - /mnt/user/jdupes/log/jdupes-cron.log:/var/log/jdupes-cron.log
       - /mnt/user/jdupes/db:/db
     environment:
       SOURCE_DIR: "/data"
