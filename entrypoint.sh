@@ -7,7 +7,7 @@ generate_script() {
   cat > "$target" <<EOF
 #!/bin/sh
 # Generated jdupes command
-exec jdupes $JDUPES_OPTIONS "$SOURCE_DIR" -y "$JDUPES_DB"
+exec stdbuf -oL -eL jdupes $JDUPES_OPTIONS "$SOURCE_DIR" -y "$JDUPES_DB"
 EOF
   chmod +x "$target"
 }
